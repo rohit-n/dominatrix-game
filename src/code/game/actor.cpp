@@ -566,7 +566,7 @@ inline qboolean Actor::CanSeeFOV(Entity *ent)
    return InFOV(ent) && CanSeeFrom(worldorigin, ent);
 }
 
-inline qboolean Actor::CanSeeFrom(Vector pos, Entity *ent)
+/*inline*/ qboolean Actor::CanSeeFrom(Vector pos, Entity *ent)
 {
    trace_t trace;
    Vector p;
@@ -1074,11 +1074,13 @@ qboolean Actor::HasEnemies(void)
 
 qboolean Actor::IsEnemy(Entity *ent)
 {
-   return enemyList.ObjectInList(EntityPtr(ent)) && seenEnemy;
+   EntityPtr ptr(ent);
+   return enemyList.ObjectInList(ptr) && seenEnemy;
 }
 
 void Actor::MakeEnemy(Entity *ent, qboolean force)
 {
+   EntityPtr ptr(ent);
    // don't get mad at things that can't be hurt or the world
    if(ent &&
       (ent != world) &&
@@ -1086,9 +1088,9 @@ void Actor::MakeEnemy(Entity *ent, qboolean force)
       !(ent->flags & FL_NOTARGET) &&
       (ent->takedamage != DAMAGE_NO))
    {
-      if(!enemyList.ObjectInList(EntityPtr(ent)))
+      if(!enemyList.ObjectInList(ptr))
       {
-         enemyList.AddObject(EntityPtr(ent));
+         enemyList.AddObject(ptr);
       }
 
       if(!currentEnemy && !seenEnemy)
@@ -1204,6 +1206,7 @@ qboolean Actor::GetVisibleTargets(void)
    for(i = 1; i <= n; i++)
    {
       ent = SentientList.ObjectAt(i);
+      EntityPtr ptr(ent);
 
       //if ( ( ent == this ) || ent->deadflag || ( ent->flags & FL_NOTARGET ) || !Hates( ent ) )
       if((ent == this) || (ent->flags & FL_NOTARGET) || ent->hidden())
@@ -1213,10 +1216,10 @@ qboolean Actor::GetVisibleTargets(void)
 
       if(WithinDistance(ent, vision_distance) && CanSeeFOV(ent))
       {
-         targetList.AddObject(EntityPtr(ent));
+         targetList.AddObject(ptr);
          if(WithinDistance(ent, 96))
          {
-            nearbyList.AddObject(EntityPtr(ent));
+            nearbyList.AddObject(ptr);
          }
       }
    }
@@ -2083,7 +2086,7 @@ inline ScriptVariable *Actor::SetVariable(const char *name, int value)
    return NULL;
 }
 
-inline ScriptVariable *Actor::SetVariable(const char *name, const char *text)
+/*inline*/ ScriptVariable *Actor::SetVariable(const char *name, const char *text)
 {
    if(actorthread)
    {
@@ -2113,7 +2116,7 @@ inline ScriptVariable *Actor::SetVariable(const char *name, Entity *ent)
    return NULL;
 }
 
-inline ScriptVariable *Actor::SetVariable(const char *name, Vector &vec)
+inline ScriptVariable *Actor::SetVariable(const char *name, const Vector &vec)
 {
    if(actorthread)
    {
@@ -2812,7 +2815,7 @@ void Actor::IfNearEvent(Event *ev)
    Entity			*bestent;
    float				bestdist;
    float				dist;
-   str				name;
+   str				name, name1;
    Vector         delta;
    float				distance;
    TargetList		*tlist;
@@ -2842,8 +2845,9 @@ void Actor::IfNearEvent(Event *ev)
    {
       bestent = NULL;
       bestdist = distance * distance;
+      name1 = str(&name[1]);
 
-      tlist = world->GetTargetList(str(&name[1]));
+      tlist = world->GetTargetList(name1);
       n = tlist->list.NumObjects();
       for(i = 1; i <= n; i++)
       {
@@ -3828,7 +3832,7 @@ void Actor::NotLandEvent(Event *ev)
    flags &= FL_SWIM | FL_FLY;
 }
 
-inline qboolean Actor::CanMoveTo(Vector pos)
+/*inline*/ qboolean Actor::CanMoveTo(Vector pos)
 {
    trace_t	trace;
    Vector	start;

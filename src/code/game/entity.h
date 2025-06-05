@@ -982,7 +982,7 @@ inline EXPORT_FROM_DLL void Entity::Unarchive(Archiver &arc)
    arc.ReadInteger(&tess_thickness);
    arc.ReadFloat(&tess_percentage);
 
-   if(_isnan(angles.x) || _isnan(angles.y) || _isnan(angles.z))
+   if(isnan(angles.x) || isnan(angles.y) || isnan(angles.z))
       angles = vec_zero;
 }
 

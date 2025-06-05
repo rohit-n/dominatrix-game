@@ -18,7 +18,9 @@
 #include "ctype.h"
 #include "worldspawn.h"
 #include "scriptmaster.h"
+#ifdef _WIN32
 #include "windows.h"
+#endif
 #include "ctf.h"
 
 cvar_t *g_numdebuglines;
@@ -192,7 +194,7 @@ EXPORT_FROM_DLL trace_t G_Trace(vec3_t start, vec3_t mins, vec3_t maxs, vec3_t e
    return trace;
 }
 
-EXPORT_FROM_DLL trace_t G_Trace(Vector &start, Vector &mins, Vector &maxs, Vector &end, Entity *passent, int contentmask, const char *reason)
+EXPORT_FROM_DLL trace_t G_Trace(const Vector &start, const Vector &mins, const Vector &maxs, const Vector &end, Entity *passent, int contentmask, const char *reason)
 {
    edict_t *ent;
    trace_t trace;
@@ -716,11 +718,12 @@ int G_FindTarget(int entnum, const char *name)
 {
    edict_t  *from;
    Entity   *next;
+   str namestr(name);
 
    if(name && name[0])
    {
       from = &g_edicts[entnum];
-      next = world->GetNextEntity(str(name), from->entity);
+      next = world->GetNextEntity(namestr, from->entity);
       if(next)
       {
          return next->entnum;
@@ -1568,7 +1571,7 @@ ScriptThread *ExecuteThread(str thread_name, qboolean start)
       if(!s)
       {
          gi.dprintf("StartThread::Null game script\n");
-         return false;
+         return NULL;
       }
       pThread = Director.CreateThread(s, thread_name.c_str());
       if(pThread)
@@ -1597,25 +1600,29 @@ G_ArchiveEdict
 void G_ArchiveEdict(Archiver &arc, edict_t *edict)
 {
    assert(edict);
+   str entname(edict->entname);
+   Vector v;
+   Quat q;
 
    if(edict->client)
    {
       arc.WriteRaw(edict->client, sizeof(*edict->client));
    }
 
-   arc.WriteVector(Vector(edict->s.origin));
-   arc.WriteVector(Vector(edict->s.angles));
+   v = edict->s.origin; arc.WriteVector(v);
+   v = edict->s.angles; arc.WriteVector(v);
 
-   arc.WriteQuat(Quat(edict->s.quat));
-   arc.WriteQuat(Quat(edict->s.mat));
+   q.set(edict->s.quat[0], edict->s.quat[1], edict->s.quat[2], edict->s.quat[3]); arc.WriteQuat( q );
+   MatToQuat( edict->s.mat, q.vec4() );
+   arc.WriteQuat( q );
 
-   arc.WriteVector(Vector(edict->s.old_origin));
+   v = edict->s.old_origin; arc.WriteVector(v);
    arc.WriteInteger(edict->s.modelindex);
    arc.WriteInteger(edict->s.frame);
    arc.WriteInteger(edict->s.prevframe);
 
-   arc.WriteVector(Vector(edict->s.vieworigin));
-   arc.WriteVector(Vector(edict->s.viewangles));
+   v = edict->s.vieworigin; arc.WriteVector(v);
+   v = edict->s.viewangles; arc.WriteVector(v);
 
    arc.WriteInteger(edict->s.anim);
    arc.WriteFloat(edict->s.scale);
@@ -1642,15 +1649,15 @@ void G_ArchiveEdict(Archiver &arc, edict_t *edict)
    //   arc.WriteInteger( edict->s.event );
 
    arc.WriteInteger(edict->svflags);
-   arc.WriteVector(Vector(edict->mins));
-   arc.WriteVector(Vector(edict->maxs));
-   arc.WriteVector(Vector(edict->absmin));
-   arc.WriteVector(Vector(edict->absmax));
-   arc.WriteVector(Vector(edict->size));
-   arc.WriteVector(Vector(edict->fullmins));
-   arc.WriteVector(Vector(edict->fullmaxs));
+   v = edict->mins; arc.WriteVector(v);
+   v = edict->maxs; arc.WriteVector(v);
+   v = edict->absmin; arc.WriteVector(v);
+   v = edict->absmax; arc.WriteVector(v);
+   v = edict->size; arc.WriteVector(v);
+   v = edict->fullmins; arc.WriteVector(v);
+   v = edict->fullmaxs; arc.WriteVector(v);
    arc.WriteFloat(edict->fullradius);
-   arc.WriteVector(Vector(edict->centroid));
+   v = edict->centroid; arc.WriteVector(v);
    arc.WriteInteger((int)edict->solid);
    arc.WriteInteger(edict->clipmask);
    if(edict->owner)
@@ -1665,7 +1672,7 @@ void G_ArchiveEdict(Archiver &arc, edict_t *edict)
 
    arc.WriteFloat(edict->freetime);
    arc.WriteFloat(edict->spawntime);
-   arc.WriteString(str(edict->entname));
+   arc.WriteString(entname);
 }
 
 /*

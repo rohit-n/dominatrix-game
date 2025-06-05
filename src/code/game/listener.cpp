@@ -83,7 +83,7 @@ EXPORT_FROM_DLL int Event::compareEvents(const void *arg1, const void *arg2)
    ev1 = *(int *)arg1;
    ev2 = *(int *)arg2;
 
-   return stricmp(commandList->ObjectAt(ev1)->c_str(), commandList->ObjectAt(ev2)->c_str());
+   return strcmpi(commandList->ObjectAt(ev1)->c_str(), commandList->ObjectAt(ev2)->c_str());
 }
 
 EXPORT_FROM_DLL void Event::SortEventList(void)
@@ -132,7 +132,7 @@ inline EXPORT_FROM_DLL int Event::FindEvent(const char *name)
    {
       index = (l + r) >> 1;
       eventnum = sortedList->ObjectAt(index);
-      diff = stricmp(name, commandList->ObjectAt(eventnum)->c_str());
+      diff = strcmpi(name, commandList->ObjectAt(eventnum)->c_str());
       if(diff < 0)
       {
          r = index - 1;
@@ -293,7 +293,7 @@ Event::Event(int num) : Class()
    threadnum = -1;
 }
 
-Event::Event(Event &ev) : Class()
+Event::Event(const Event &ev) : Class()
 {
    int num;
    int i;

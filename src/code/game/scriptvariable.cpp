@@ -501,7 +501,7 @@ EXPORT_FROM_DLL ScriptVariable *ScriptVariableList::SetVariable(const char *name
    return var;
 }
 
-EXPORT_FROM_DLL ScriptVariable *ScriptVariableList::SetVariable(const char *name, Vector &vec)
+EXPORT_FROM_DLL ScriptVariable *ScriptVariableList::SetVariable(const char *name, const Vector &vec)
 {
    ScriptVariable *var;
 
@@ -666,7 +666,7 @@ void ScriptVariable::Var_IfLessEqual(Event *ev)
 
 void ScriptVariable::Var_IfStrEqual(Event *ev)
 {
-   if(stricmp(stringValue(), ev->GetString(1)) == 0)
+   if(strcmpi(stringValue(), ev->GetString(1)) == 0)
    {
       VarProcessCommand(ev, 2);
    }
@@ -674,7 +674,7 @@ void ScriptVariable::Var_IfStrEqual(Event *ev)
 
 void ScriptVariable::Var_IfStrNotEqual(Event *ev)
 {
-   if(stricmp(stringValue(), ev->GetString(1)) != 0)
+   if(strcmpi(stringValue(), ev->GetString(1)) != 0)
    {
       VarProcessCommand(ev, 2);
    }

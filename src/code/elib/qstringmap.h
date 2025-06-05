@@ -58,7 +58,7 @@ public:
 
    T find(const char *name) const
    {
-      TMap::const_iterator itr = tmap.find(qstring(name));
+      typename TMap::const_iterator itr = tmap.find(qstring(name));
       return (itr != tmap.cend()) ? itr->second : nullptr;
    }
 

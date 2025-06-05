@@ -37,7 +37,6 @@
 #include "actor.h"
 #include "ctf.h"
 
-#include <windows.h>
 
 //temporarily put this in.
 //#define OLD_DEATH_MESSAGES 1
@@ -2551,7 +2550,7 @@ void Player::Take(Event *ev)
       return;
    }
 
-   if(!stricmp(name, "all"))
+   if(!strcmpi(name, "all"))
    {
       if(currentWeapon)
          currentWeapon->DetachFromOwner();
@@ -5956,11 +5955,11 @@ void Player::CTF_Team(Event *ev)
 
    team = ev->GetString(1);
 
-   if((!stricmp(team.c_str(), "hardcorps")) || (!stricmp(team.c_str(), "blue")))
+   if((!strcmpi(team.c_str(), "hardcorps")) || (!strcmpi(team.c_str(), "blue")))
    {
       desired_team = CTF_TEAM_HARDCORPS;
    }
-   else if((!stricmp(team.c_str(), "sintek")) || (!stricmp(team.c_str(), "red")))
+   else if((!strcmpi(team.c_str(), "sintek")) || (!strcmpi(team.c_str(), "red")))
    {
       desired_team = CTF_TEAM_SINTEK;
    }

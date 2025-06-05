@@ -19,7 +19,7 @@
 #include "limits.h"
 #include "g_local.h"
 #include "g_utils.h"
-#include "Entity.h"
+#include "entity.h"
 #include "vector.h"
 #include "scriptmaster.h"
 #include "navigate.h"
@@ -30,6 +30,10 @@
 #include "gravpath.h"
 #include "deadbody.h"
 #include "ctf.h"
+
+extern "C" {
+EXPORT_FROM_DLL game_export_t * GetGameAPI(game_import_t *import);
+}
 
 Vector vec_origin(0, 0, 0);
 Vector vec_zero(0, 0, 0);
@@ -766,7 +770,7 @@ Returns a pointer to the structure with all entry points
 and global variables
 =================
 */
-game_export_t *GetGameAPI(game_import_t *import)
+EXPORT_FROM_DLL game_export_t *GetGameAPI(game_import_t *import)
 {
    gi = *import;
 
@@ -887,7 +891,7 @@ void G_EndDMLevel(void)
       t = strtok(s, seps);
       while(t != NULL)
       {
-         if(!stricmp(t, level.mapname.c_str()))
+         if(!strcmpi(t, level.mapname.c_str()))
          {
             // it's in the list, go to the next one
             t = strtok(NULL, seps);

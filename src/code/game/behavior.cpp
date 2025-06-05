@@ -15,6 +15,7 @@
 //
 
 #include "g_local.h"
+#include "navigate.h"
 #include "behavior.h"
 #include "actor.h"
 #include "doors.h"

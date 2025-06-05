@@ -2838,25 +2838,25 @@ void Entity::Flags(Event *ev)
          break;
       }
 
-      if(!stricmp(flag, "blood"))
+      if(!strcmpi(flag, "blood"))
          mask = FL_BLOOD;
-      else if(!stricmp(flag, "sparks"))
+      else if(!strcmpi(flag, "sparks"))
          mask = FL_SPARKS;
-      else if(!stricmp(flag, "shatter"))
+      else if(!strcmpi(flag, "shatter"))
          mask = FL_TESSELATE;
-      else if(!stricmp(flag, "blast"))
+      else if(!strcmpi(flag, "blast"))
          mask = FL_BLASTMARK;
-      else if(!stricmp(flag, "die_shatter"))
+      else if(!strcmpi(flag, "die_shatter"))
          mask = FL_DIE_TESSELATE;
-      else if(!stricmp(flag, "explode"))
+      else if(!strcmpi(flag, "explode"))
          mask = FL_DIE_EXPLODE;
-      else if(!stricmp(flag, "die_gibs"))
+      else if(!strcmpi(flag, "die_gibs"))
          mask = FL_DIE_GIBS;
-      else if(!stricmp(flag, "darken"))
+      else if(!strcmpi(flag, "darken"))
          mask = FL_DARKEN;
-      else if(!stricmp(flag, "forcefield"))
+      else if(!strcmpi(flag, "forcefield"))
          mask = FL_FORCEFIELD;
-      else if(!stricmp(flag, "stealth"))
+      else if(!strcmpi(flag, "stealth"))
          mask = FL_STEALTH;
       else
       {
@@ -2918,17 +2918,17 @@ void Entity::Effects(Event *ev)
          break;
       }
 
-      if(!stricmp(flag, "rotate"))
+      if(!strcmpi(flag, "rotate"))
          mask = EF_ROTATE;
-      else if(!stricmp(flag, "rocket"))
+      else if(!strcmpi(flag, "rocket"))
          mask = EF_ROCKET;
-      else if(!stricmp(flag, "gib"))
+      else if(!strcmpi(flag, "gib"))
          mask = EF_GIB;
-      else if(!stricmp(flag, "pulse"))
+      else if(!strcmpi(flag, "pulse"))
          mask = EF_PULSE;
-      else if(!stricmp(flag, "everyframe"))
+      else if(!strcmpi(flag, "everyframe"))
          mask = EF_EVERYFRAME;
-      else if(!stricmp(flag, "autoanimate"))
+      else if(!strcmpi(flag, "autoanimate"))
          mask = EF_AUTO_ANIMATE;
       else
       {
@@ -2982,15 +2982,15 @@ void Entity::RenderEffects(Event *ev)
          break;
       }
 
-      if(!stricmp(flag, "minlight"))
+      if(!strcmpi(flag, "minlight"))
          mask = RF_MINLIGHT;
-      else if(!stricmp(flag, "fullbright"))
+      else if(!strcmpi(flag, "fullbright"))
          mask = RF_FULLBRIGHT;
-      else if(!stricmp(flag, "envmapped"))
+      else if(!strcmpi(flag, "envmapped"))
          mask = RF_ENVMAPPED;
-      else if(!stricmp(flag, "glow"))
+      else if(!strcmpi(flag, "glow"))
          mask = RF_GLOW;
-      else if(!stricmp(flag, "dontdraw"))
+      else if(!strcmpi(flag, "dontdraw"))
          mask = RF_DONTDRAW;
       else
       {

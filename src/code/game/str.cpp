@@ -13,7 +13,7 @@
 // DESCRIPTION:
 // Simple, DLL portable string class
 // 
-
+#include "g_local.h"
 #include "str.h"
 
 /*

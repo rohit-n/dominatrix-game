@@ -411,7 +411,8 @@ int G_FlyMove(Entity *ent, Vector basevel, float time, int mask)
       //
       for(i = 0; i < numplanes; i++)
       {
-         G_ClipVelocity(original_velocity, Vector(planes[i]), new_velocity, 1.01, ent->gravaxis);
+         Vector Foof( planes[ i ] );
+         G_ClipVelocity(original_velocity, Foof, new_velocity, 1.01, ent->gravaxis);
          for(j = 0; j < numplanes; j++)
          {
             if(j != i)
@@ -1089,8 +1090,8 @@ void G_Physics_Toss(Entity *ent)
       {
          backoff = 1;
       }
-
-      G_ClipVelocity(ent->velocity, Vector(trace.plane.normal), ent->velocity, backoff, ent->gravaxis);
+      Vector Foot(trace.plane.normal);
+      G_ClipVelocity(ent->velocity, Foot, ent->velocity, backoff, ent->gravaxis);
 
       // stop if on ground
       if((trace.plane.normal[grav.z] * grav.sign) > 0.7)

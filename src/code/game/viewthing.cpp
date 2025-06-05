@@ -227,7 +227,13 @@ void ViewMaster::SetModelEvent(Event *ev)
 
    // Prepend 'models/' to make things easier
    str[0] = 0;
-   if((mdl[1] != ':') && strnicmp(mdl, "models", 6))
+   if((mdl[1] != ':') &&
+#ifdef _WIN32
+   strnicmp(mdl, "models", 6)
+#else
+   strncasecmp(mdl, "models", 6)
+#endif
+)
    {
       strcpy(str, "models/");
    }

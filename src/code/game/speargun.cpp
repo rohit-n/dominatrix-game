@@ -15,7 +15,7 @@
 // 
 
 #include "g_local.h"
-#include "SpearGun.h"
+#include "speargun.h"
 #include "worldspawn.h"
 #include "specialfx.h"
 

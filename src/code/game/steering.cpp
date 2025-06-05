@@ -15,6 +15,7 @@
 // 
 
 #include "g_local.h"
+#include "navigate.h"
 #include "steering.h"
 #include "actor.h"
 

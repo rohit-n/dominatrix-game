@@ -18,7 +18,7 @@
 #include "console.h"
 #include "scriptmaster.h"
 #include "camera.h"
-#include "Player.h"
+#include "player.h"
 
 ConsoleManager consoleManager;
 
@@ -931,7 +931,7 @@ void ConsoleManager::ConsoleFocus(Event *ev)
    svcon  = &g_consoles[num];
    focus  = ev->GetString(2);
 
-   if(!stricmp(focus, "menu"))
+   if(!strcmpi(focus, "menu"))
    {
       svcon->s.focus = MENU3D;
    }

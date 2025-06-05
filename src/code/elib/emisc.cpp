@@ -33,6 +33,8 @@
 #if _MSC_VER < 1400 /* not needed for Visual Studio 2008 */
 #define vsnprintf _vsnprintf
 #endif
+#else
+#include <cerrno>
 #endif
 
 //

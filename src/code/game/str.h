@@ -20,8 +20,7 @@
 #include <assert.h>
 #include <string.h>
 
-// SINEX_FIXME: platform-specific export declspec
-class __declspec(dllexport) str
+class EXPORT_FROM_DLL str
 {
 protected:
    int               len;

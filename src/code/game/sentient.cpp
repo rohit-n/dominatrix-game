@@ -27,6 +27,8 @@
 #include "actor.h"
 #include "ctf.h"
 
+#define __min(a,b)  (((a) < (b)) ? (a) : (b))
+
 CLASS_DECLARATION(Entity, Sentient, NULL);
 
 Event EV_Sentient_Attack("fire");
@@ -2173,7 +2175,7 @@ EXPORT_FROM_DLL void Sentient::Unarchive(Archiver &arc)
    arc.ReadBoolean(&animOverride);
    //FIXME
    // make a ReadEventPointer function
-   Event& ev = arc.ReadEvent();
+   Event ev = arc.ReadEvent();
    tempAnimEvent = new Event(ev);          // ksh -- Pulled event out first to fix compilation bugs
    arc.ReadString(&gun_bone_group_name);   // ksh -- Switched to passing in event object to fix compilation bugs
    arc.ReadBoolean(&stopanimating_tillchange);

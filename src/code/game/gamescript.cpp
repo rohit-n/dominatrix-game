@@ -17,6 +17,7 @@
 #include "g_local.h"
 #include "script.h"
 #include "gamescript.h"
+#undef max
 #include "../elib/qstringmap.h" // haleyjd 20170608
 
 ScriptLibrarian ScriptLib;

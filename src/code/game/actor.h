@@ -401,7 +401,7 @@ public:
    ScriptVariable             *SetVariable(const char *name, const char *text);
    ScriptVariable             *SetVariable(const char *name, str &text);
    ScriptVariable             *SetVariable(const char *name, Entity *ent);
-   ScriptVariable             *SetVariable(const char *name, Vector &vec);
+   ScriptVariable             *SetVariable(const char *name, const Vector &vec);
 
    // Thread based script commands
    void                       SetScript(Event *ev);
@@ -824,11 +824,11 @@ inline EXPORT_FROM_DLL void Actor::Unarchive(Archiver &arc)
    arc.ReadBoolean(&nochatter);
 
    // check some vectors
-   if(_isnan(move.x) || _isnan(move.y) || _isnan(move.z))
+   if(isnan(move.x) || isnan(move.y) || isnan(move.z))
       move = vec_zero;
-   if(_isnan(movedir.x) || _isnan(movedir.y) || _isnan(movedir.z))
+   if(isnan(movedir.x) || isnan(movedir.y) || isnan(movedir.z))
       movedir = vec_zero;
-   if(_isnan(movevelocity.x) || _isnan(movevelocity.y) || _isnan(movevelocity.z))
+   if(isnan(movevelocity.x) || isnan(movevelocity.y) || isnan(movevelocity.z))
       movevelocity = vec_zero;
 }
 

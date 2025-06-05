@@ -24,6 +24,8 @@
 #include "g_local.h"
 #include <stdlib.h>
 
+extern game_import_t		gi;
+
 template< class Type >
 class EXPORT_FROM_DLL Container
 {
@@ -41,7 +43,7 @@ public:
    int      NumObjects(void) const;
    void     Resize(int maxelements);
    void     SetObjectAt(int index, Type& obj);
-   int      AddObject(Type& obj);
+   int      AddObject(const Type& obj);
    int      AddUniqueObject(Type& obj);
    void     AddObjectAt(int index, Type& obj);
    int      IndexOfObject(const Type & obj);
@@ -50,7 +52,7 @@ public:
    Type     *AddressOfObjectAt(int index);
    void     RemoveObjectAt(int index);
    void     RemoveObject(Type const & obj);
-   void     Sort(int(__cdecl *compare)(const void *elem1, const void *elem2));
+   void     Sort(int( /*__cdecl*/ *compare)(const void *elem1, const void *elem2));
    //      virtual void Archive(	Archiver &arc );
    //      virtual void Unarchive( Archiver &arc );
 
@@ -195,7 +197,7 @@ EXPORT_FROM_DLL void Container<Type>::SetObjectAt(int index, Type &obj)
 }
 
 template<class Type>
-EXPORT_FROM_DLL int Container<Type>::AddObject(Type &obj)
+EXPORT_FROM_DLL int Container<Type>::AddObject(const Type &obj)
 {
    if(!objlist)
    {
@@ -207,7 +209,7 @@ EXPORT_FROM_DLL int Container<Type>::AddObject(Type &obj)
       Resize(maxobjects * 2);
    }
 
-   objlist[numobjects] = obj;
+   objlist[numobjects] = (Type &)obj;
    numobjects++;
 
    return numobjects;
@@ -337,7 +339,7 @@ EXPORT_FROM_DLL void Container<Type>::RemoveObject(const Type &obj)
 }
 
 template<class Type>
-EXPORT_FROM_DLL void Container<Type>::Sort(int (__cdecl *compare)(const void *elem1, const void *elem2))
+EXPORT_FROM_DLL void Container<Type>::Sort(int (/*__cdecl*/ *compare)(const void *elem1, const void *elem2))
 {
    if(!objlist)
    {

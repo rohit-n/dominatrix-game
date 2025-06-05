@@ -17,9 +17,18 @@
 #ifndef __G_LOCAL_H__
 #define __G_LOCAL_H__
 
-#if 0
-#define EXPORT_FROM_DLL __declspec( dllexport )
-#define EXPORT_TEMPLATE
+#ifndef _WIN32
+#define strcmpi(s1, s2) strcasecmp(s1, s2)
+#define strnicmp(s1, s2, n) strncasecmp(s1, s2, n)
+#endif
+
+#ifndef REF_HARD_LINKED
+#if defined(__linux__) || defined(__SWITCH__)
+#define EXPORT_FROM_DLL __attribute__ ((visibility("default")))
+#else
+#define EXPORT_FROM_DLL __declspec( export )
+#endif
+//#define EXPORT_TEMPLATE
 #else
 #define EXPORT_FROM_DLL
 #endif
@@ -160,7 +169,7 @@ struct edict_s
 };
 
 #include "vector.h"
-#include "linklist.h"
+#include "LINKLIST.H"
 #include "class.h"
 
 //

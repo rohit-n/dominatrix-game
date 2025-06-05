@@ -301,37 +301,37 @@ public:
 };
 
 template<class T>
-inline EXPORT_FROM_DLL constexpr int __cdecl operator == (const SafePtr<T> &a, T *b) noexcept
+inline EXPORT_FROM_DLL constexpr int operator == (const SafePtr<T> &a, T *b) noexcept
 {
    return a.ptr == b;
 }
 
 template<class T>
-inline EXPORT_FROM_DLL constexpr int __cdecl operator != (const SafePtr<T> &a, T *b) noexcept
+inline EXPORT_FROM_DLL constexpr int operator != (const SafePtr<T> &a, T *b) noexcept
 {
    return a.ptr != b;
 }
 
 template<class T>
-inline EXPORT_FROM_DLL constexpr int __cdecl operator == (T *a, const SafePtr<T> &b) noexcept
+inline EXPORT_FROM_DLL constexpr int operator == (T *a, const SafePtr<T> &b) noexcept
 {
    return a == b.ptr;
 }
 
 template<class T>
-inline EXPORT_FROM_DLL constexpr int __cdecl operator != (T *a, const SafePtr<T> &b) noexcept
+inline EXPORT_FROM_DLL constexpr int operator != (T *a, const SafePtr<T> &b) noexcept
 {
    return a != b.ptr;
 }
 
 template<class T>
-inline EXPORT_FROM_DLL constexpr int __cdecl operator == (const SafePtr<T> &a, const SafePtr<T> &b) noexcept
+inline EXPORT_FROM_DLL constexpr int operator == (const SafePtr<T> &a, const SafePtr<T> &b) noexcept
 {
    return a.ptr == b.ptr;
 }
 
 template<class T>
-inline EXPORT_FROM_DLL constexpr int __cdecl operator != (const SafePtr<T> &a, const SafePtr<T> &b) noexcept
+inline EXPORT_FROM_DLL constexpr int operator != (const SafePtr<T> &a, const SafePtr<T> &b) noexcept
 {
    return a.ptr != b.ptr;
 }

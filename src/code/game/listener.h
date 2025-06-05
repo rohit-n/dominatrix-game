@@ -44,9 +44,16 @@ class Archiver;
 template class EXPORT_FROM_DLL Container<str *>;
 #endif
 
+void G_ProcessPendingEvents();
+void G_ClearEventList();
+void G_InitEvents();
+void G_ArchiveEvents(Archiver &arc);
+void G_UnarchiveEvents(Archiver &arc);
+
 class EXPORT_FROM_DLL Event : public Class
 {
-private:
+//	private:
+public:
    struct EventInfo
    {
       unsigned			inuse : 8;		// must change MAX_EVENT_USE to reflect maximum number stored here
@@ -63,13 +70,9 @@ private:
 
    static void     initCommandList();
 
-   friend class    Listener;
+   class    Listener;
 
-   friend void EXPORT_FROM_DLL G_ProcessPendingEvents();
-   friend void EXPORT_FROM_DLL G_ClearEventList();
-   friend void EXPORT_FROM_DLL G_InitEvents();
-   friend void EXPORT_FROM_DLL G_ArchiveEvents(Archiver &arc);
-   friend void EXPORT_FROM_DLL G_UnarchiveEvents(Archiver &arc);
+
 
    static Container<str *> *commandList;
    static Container<int>   *flagList;
@@ -89,7 +92,7 @@ public:
 
    Event();
    Event(int num); // ksh -- made public to fix compilation bugs (may no longer be necessary)
-   Event(Event &ev);
+   Event(const Event &ev);
    Event(Event *ev);
    explicit Event(const char *command, int flags = -1); // ksh -- Added explicit to fix compilation bugs
    Event(str &command, int flags = -1);
@@ -185,9 +188,9 @@ public:
    qboolean                ValidEvent(const char *name);
    qboolean                EventPending(Event &ev);
    qboolean                ProcessEvent(Event *event);
-   qboolean                ProcessEvent(Event &event);
+   qboolean                ProcessEvent(const Event &event);
    void                    PostEvent(Event *event, float time);
-   void                    PostEvent(Event &event, float time);
+   void                    PostEvent(const Event &event, float time);
    qboolean                PostponeEvent(Event &event, float time);
    qboolean                PostponeEvent(Event *event, float time);
    void                    CancelEventsOfType(Event *event);
@@ -429,7 +432,7 @@ inline EXPORT_FROM_DLL const char *Event::GetToken(int pos)
    return data->ObjectAt(pos).c_str();
 }
 
-inline EXPORT_FROM_DLL qboolean Listener::ProcessEvent(Event &event)
+inline EXPORT_FROM_DLL qboolean Listener::ProcessEvent(const Event &event)
 {
    Event *ev;
 
@@ -437,7 +440,7 @@ inline EXPORT_FROM_DLL qboolean Listener::ProcessEvent(Event &event)
    return ProcessEvent(ev);
 }
 
-inline EXPORT_FROM_DLL void Listener::PostEvent(Event &event, float time)
+inline EXPORT_FROM_DLL void Listener::PostEvent(const Event &event, float time)
 {
    Event *ev;
 

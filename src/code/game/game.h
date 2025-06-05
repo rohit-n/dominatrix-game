@@ -21,7 +21,7 @@
 extern "C" {
 #endif
 
-#define GAME_API_VERSION 14
+#define GAME_API_VERSION 13
 
 // edict->svflags
 #define FRAMETIME 0.1

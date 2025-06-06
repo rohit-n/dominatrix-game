@@ -114,10 +114,23 @@ GameScript *ScriptLibrarian::GetScript(const char *name)
 {
    GameScript *scr;
    str n;
+   int ret;
 
    n = G_FixSlashes(name);
    scr = FindScript(n.c_str());
-   if(!scr && (gi.LoadFile(name, nullptr, 0) != -1))
+   ret = gi.LoadFile( n.c_str(), NULL, 0 );
+   if (ret == -1)
+   {
+      if (!strncmp(name, "dialog/", strlen("dialog/")))
+         {
+            //Steam data files, assume English for now
+            n = "locale/en/" + n;
+            G_FixSlashes( n.c_str());
+            scr = FindScript( n.c_str() );
+            ret = gi.LoadFile( n.c_str(), NULL, 0 );
+         }
+   }
+   if ( !scr && ( ret != -1 ) )
    {
       scr = new GameScript();
       scr->LoadFile(n.c_str());

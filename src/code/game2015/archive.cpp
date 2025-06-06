@@ -360,7 +360,7 @@ inline void Archiver::CheckType(int type)
 
 inline size_t Archiver::ReadSize(void)
 {
-   size_t s;
+   unsigned int s;
 
    s = 0;
    if(!fileerror)
@@ -368,7 +368,7 @@ inline size_t Archiver::ReadSize(void)
       readfile.Read(&s, sizeof(s));
    }
 
-   return s;
+   return (size_t)s;
 }
 
 inline void Archiver::CheckSize(int type, size_t size)
@@ -477,7 +477,7 @@ void Archiver::ReadSafePointer(SafePtrBase * ptr)
    int index;
    pointer_fixup_t *fixup;
 
-   ReadData(ARC_SafePointer, &index, sizeof(&index));
+   ReadData(ARC_SafePointer, &index, sizeof(index));
 
    // Check for a NULL pointer
    assert(ptr);
@@ -779,12 +779,12 @@ inline void Archiver::WriteType(int type)
    fwrite(&type, sizeof(type), 1, file);
 }
 
-inline void Archiver::WriteSize(size_t size)
+inline void Archiver::WriteSize(unsigned int size)
 {
    fwrite(&size, sizeof(size), 1, file);
 }
 
-inline void Archiver::WriteData(int type, const void *data, size_t size)
+inline void Archiver::WriteData(int type, const void *data, unsigned int size)
 {
    CheckWrite();
    WriteType(type);

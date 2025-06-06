@@ -90,8 +90,8 @@ protected:
 
    void           CheckWrite(void);
    void           WriteType(int type);
-   void           WriteSize(size_t size);
-   void           WriteData(int type, const void *data, size_t size);
+   void           WriteSize(unsigned int size);
+   void           WriteData(int type, const void *data, unsigned int size);
 
 public:
    CLASS_PROTOTYPE(Archiver);

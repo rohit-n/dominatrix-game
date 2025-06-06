@@ -113,7 +113,7 @@ GameScript *ScriptLibrarian::FindScript(const char *name)
 GameScript *ScriptLibrarian::GetScript(const char *name)
 {
    GameScript *scr;
-   str n;
+   str n, o, ext;
    int ret;
 
    n = G_FixSlashes(name);
@@ -128,6 +128,23 @@ GameScript *ScriptLibrarian::GetScript(const char *name)
             G_FixSlashes( n.c_str());
             scr = FindScript( n.c_str() );
             ret = gi.LoadFile( n.c_str(), NULL, 0 );
+            if (ret == -1 && n.length() > 3)
+            {
+               // A very dumb workaround for oilrig_cinema, which has
+               // a capitalized extension for the Steam version
+               o = str(n, 0, n.length() - 3);
+               ext = str(n, n.length() - 3, n.length());
+               if (ext == "scr")
+               {
+                  o += "SCR";
+                  scr = FindScript( o.c_str() );
+                  ret = gi.LoadFile( o.c_str(), NULL, 0 );
+                  if (ret != -1)
+                  {
+                     n = o;
+                  }
+               }
+            }
          }
    }
    if ( !scr && ( ret != -1 ) )

@@ -6255,13 +6255,16 @@ EXPORT_FROM_DLL void Player::UpdateStats()
 {
    Armor *armor;
    int   i;
-   int weapflags = 0;
-   const char* weapons[17] = {
+   int weapflags1 = 0;
+   int weapflags2 = 0;
+   Ammo	*ammo;
+   const char* weapons[18] = {
 	"Fists",
 	"Magnum",
 	"Shotgun",
 	"AssaultRifle",
 	"ChainGun",
+   "SpiderMines",
 	"RocketLauncher",
 	"PulseRifle",
 	"QuantumDestabilizer",
@@ -6349,14 +6352,38 @@ EXPORT_FROM_DLL void Player::UpdateStats()
    //
    // Weapon list
    //
-   for (i = 0; i < 17; i++)
+   for (i = 0; i < 18; i++)
    {
       if (HasItem(weapons[i]))
       {
-         weapflags |= (1 << i);
+         if (i == 5)
+         {
+            //don't consider Spidermines unless we have ammo
+            ammo = (Ammo *)FindItem(weapons[i]);
+            if (!ammo)
+            {
+                continue;
+				}
+            if (ammo->Amount() == 0)
+            {
+                continue;
+            }
+         }
+         //rkn - player stats are stored as shorts, so we can't fit 18 weapons
+         //in a single variable
+         if (i > 11)
+         {
+             weapflags2 |= (1 << (i - 11));
+         }
+         else
+         {
+            weapflags1 |= (1 << i);
+         }
       }
    }
-   client->ps.stats[ STAT_WEAPONLIST ] = weapflags;
+   client->ps.stats[ STAT_WEAPONLIST ] = weapflags1;
+   //rkn - STAT_AMMO_ROCKETS isn't overwritten like STAT_AMMO_BASE is with STAT_LASTLAP (thanks, 2015)
+   client->ps.stats[ STAT_AMMO_ROCKETS ] = weapflags2;
 
    //
    // Inventory

@@ -4739,6 +4739,7 @@ EXPORT_FROM_DLL void Player::UpdateStats(void)
    Armor *armor;
    int   i;
    int weapflags = 0;
+   Ammo	*ammo;
    const char* weapons[11] = {
 	"Fists",
 	"Magnum",
@@ -4819,10 +4820,23 @@ EXPORT_FROM_DLL void Player::UpdateStats(void)
    //
    // Weapon list
    //
-   for (i = 0; i < 10; i++)
+   for (i = 0; i < 11; i++)
    {
       if (HasItem(weapons[i]))
       {
+         if (i == 5)
+         {
+            //don't consider Spidermines unless we have ammo
+            ammo = (Ammo *)FindItem(weapons[i]);
+            if (!ammo)
+            {
+                continue;
+				}
+            if (ammo->Amount() == 0)
+            {
+                continue;
+            }
+         }
          weapflags |= (1 << i);
       }
    }

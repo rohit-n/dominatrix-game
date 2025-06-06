@@ -5527,7 +5527,7 @@ void Player::SetCameraEntity(Entity *cameraEnt)
       }
       else if(cameraEnt->isSubclassOf<Camera>())
       {
-         camerafov = static_cast<Camera *>(cameraEnt)->fov;
+         camerafov = fov + 5;
          if(cameraEnt->isSubclassOf<SecurityCamera>())
             cameraEnt->edict->s.renderfx |= RF_DONTDRAW;
       }

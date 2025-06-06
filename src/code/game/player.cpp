@@ -4738,6 +4738,20 @@ EXPORT_FROM_DLL void Player::UpdateStats(void)
 {
    Armor *armor;
    int   i;
+   int weapflags = 0;
+   const char* weapons[11] = {
+	"Fists",
+	"Magnum",
+	"Shotgun",
+	"AssaultRifle",
+	"ChainGun",
+	"SpiderMines",
+	"RocketLauncher",
+	"PulseRifle",
+	"QuantumDestabilizer",
+	"SniperRifle",
+	"SpearGun"
+	};
 
    // Current Ammo
    if(currentWeapon)
@@ -4805,7 +4819,14 @@ EXPORT_FROM_DLL void Player::UpdateStats(void)
    //
    // Weapon list
    //
-   client->ps.stats[STAT_WEAPONLIST] = 0;
+   for (i = 0; i < 10; i++)
+   {
+      if (HasItem(weapons[i]))
+      {
+         weapflags |= (1 << i);
+      }
+   }
+   client->ps.stats[ STAT_WEAPONLIST ] = weapflags;
 
    //
    // Inventory

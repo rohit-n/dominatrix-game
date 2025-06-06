@@ -6257,6 +6257,26 @@ EXPORT_FROM_DLL void Player::UpdateStats()
 {
    Armor *armor;
    int   i;
+   int weapflags = 0;
+   const char* weapons[17] = {
+	"Fists",
+	"Magnum",
+	"Shotgun",
+	"AssaultRifle",
+	"ChainGun",
+	"RocketLauncher",
+	"PulseRifle",
+	"QuantumDestabilizer",
+	"SniperRifle",
+	"SpearGun",
+	"ConcussionGun",
+	"DualMagnum",
+	"PlasmaBow",
+	"FlameThrower",
+	"MissileLauncher",
+	"StingerPack",
+	"IP36"
+	};
 
    // Current Ammo
    //### added for hoverbike
@@ -6331,7 +6351,14 @@ EXPORT_FROM_DLL void Player::UpdateStats()
    //
    // Weapon list
    //
-   client->ps.stats[STAT_WEAPONLIST] = 0;
+   for (i = 0; i < 17; i++)
+   {
+      if (HasItem(weapons[i]))
+      {
+         weapflags |= (1 << i);
+      }
+   }
+   client->ps.stats[ STAT_WEAPONLIST ] = weapflags;
 
    //
    // Inventory

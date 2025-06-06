@@ -123,8 +123,11 @@ GameScript *ScriptLibrarian::GetScript(const char *name)
    {
       if (!strncmp(name, "dialog/", strlen("dialog/")))
          {
-            //Steam data files, assume English for now
-            n = "locale/en/" + n;
+            //Steam data files
+            n = "locale/";
+            n += locale->string;
+            n += "/";
+            n += name;
             G_FixSlashes( n.c_str());
             scr = FindScript( n.c_str() );
             ret = gi.LoadFile( n.c_str(), NULL, 0 );

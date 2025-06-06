@@ -130,6 +130,7 @@ cvar_t	*csys_z;
 cvar_t	*csys_draw;
 
 cvar_t   *parentmode;
+cvar_t* locale;
 
 int		sv_numtraces;
 
@@ -329,6 +330,7 @@ void G_InitGame(void)
    }
 
    parentmode        = gi.cvar("parentmode", "0", CVAR_USERINFO|CVAR_SERVERINFO|CVAR_ARCHIVE);
+   locale = gi.cvar("locale", "en", CVAR_ARCHIVE);
 
    CTF_Init();
 

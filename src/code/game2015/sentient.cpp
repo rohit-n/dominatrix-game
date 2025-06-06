@@ -28,6 +28,8 @@
 #include "hoverweap.h" //###
 #include "ctf.h"
 
+#define __min(a,b)  (((a) < (b)) ? (a) : (b))
+
 CLASS_DECLARATION(Entity, Sentient, nullptr);
 
 Event EV_Sentient_Attack("fire");

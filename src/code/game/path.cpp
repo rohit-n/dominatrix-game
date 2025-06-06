@@ -18,7 +18,6 @@
 #include "navigate.h"
 #include "path.h"
 #include "container.h"
-#include "navigate.h"
 #include "misc.h"
 
 CLASS_DECLARATION( Class, Path, nullptr );

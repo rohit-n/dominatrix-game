@@ -38,7 +38,7 @@ EXPORT_FROM_DLL Entity    *G_NextEntity(Entity *ent);
 EXPORT_FROM_DLL void       G_CalcBoundsOfMove(Vector &start, Vector &end, Vector &mins, Vector &maxs, Vector *minbounds, Vector *maxbounds);
 
 EXPORT_FROM_DLL void       G_ShowTrace(trace_t *trace, edict_t *passent, const char *reason);
-EXPORT_FROM_DLL trace_t    G_Trace(Vector &start, Vector &mins, Vector &maxs, Vector &end, Entity *passent, int contentmask, const char *reason);
+EXPORT_FROM_DLL trace_t    G_Trace(const Vector &start, const Vector &mins, const Vector &maxs, const Vector &end, Entity *passent, int contentmask, const char *reason);
 EXPORT_FROM_DLL trace_t    G_Trace(vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end, edict_t *passent, int contentmask, const char *reason);
 EXPORT_FROM_DLL trace_t    G_FullTrace(Vector &start, Vector &mins, Vector &maxs, Vector &end, float radius, Entity *passent, int contentmask, const char *reason);
 EXPORT_FROM_DLL trace_t    G_FullTrace(vec3_t start, vec3_t mins, vec3_t maxs, vec3_t end, float radius, edict_t *passent, int contentmask, const char *reason);

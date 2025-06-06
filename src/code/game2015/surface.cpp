@@ -20,7 +20,7 @@
 #include "misc.h"
 #include "specialfx.h"
 #include <ctype.h>
-
+#undef max
 #include "../elib/qstringmap.h" // haleyjd 20170608
 
 CLASS_DECLARATION(Class, Surface, nullptr);

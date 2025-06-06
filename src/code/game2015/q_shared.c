@@ -1092,7 +1092,11 @@ int MusicMood_NameToNum(const char * name)
 
    for(i = 0; i < mood_totalnumber; i++)
    {
+#ifndef __linux
       if(!strcmpi(name, musicmoods[i]))
+#else
+      if(!strcasecmp(name, musicmoods[i]))
+#endif
       {
          return i;
       }

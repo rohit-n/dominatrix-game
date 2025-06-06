@@ -128,6 +128,7 @@ cvar_t	*csys_z;
 cvar_t	*csys_draw;
 
 cvar_t   *parentmode;
+cvar_t* locale;
 
 //###
 cvar_t   *informermodel;
@@ -348,6 +349,7 @@ void G_InitGame(void)
    }
 
    parentmode        = gi.cvar("parentmode", "0", CVAR_USERINFO|CVAR_SERVERINFO|CVAR_ARCHIVE);
+   locale = gi.cvar("locale", "en", CVAR_ARCHIVE);
 
    //###
    informermodel     = gi.cvar("informermodel", MFD_INFORMERMODEL, CVAR_SERVERINFO | CVAR_ARCHIVE);
@@ -932,7 +934,7 @@ void G_EndDMLevel(void)
       t = strtok(s, seps);
       while(t != NULL)
       {
-         if(!stricmp(t, level.mapname.c_str()))
+         if(!strcmpi(t, level.mapname.c_str()))
          {
             // it's in the list, go to the next one
             t = strtok(NULL, seps);

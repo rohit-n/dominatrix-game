@@ -90,7 +90,7 @@ ResponseDef Event::Responses[] =
    ev1 = *(int *)arg1;
    ev2 = *(int *)arg2;
 
-   return stricmp(commandList->ObjectAt(ev1)->c_str(), commandList->ObjectAt(ev2)->c_str());
+   return strcmpi(commandList->ObjectAt(ev1)->c_str(), commandList->ObjectAt(ev2)->c_str());
 }
 
  void Event::SortEventList(void)
@@ -139,7 +139,7 @@ inline  int Event::FindEvent(const char *name)
    {
       index = (l + r) >> 1;
       eventnum = sortedList->ObjectAt(index);
-      diff = stricmp(name, commandList->ObjectAt(eventnum)->c_str());
+      diff = strcmpi(name, commandList->ObjectAt(eventnum)->c_str());
       if(diff < 0)
       {
          r = index - 1;

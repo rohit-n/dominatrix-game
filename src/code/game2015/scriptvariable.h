@@ -193,7 +193,7 @@ public:
    ScriptVariable *SetVariable(const char *name, int value);
    ScriptVariable *SetVariable(const char *name, const char *text);
    ScriptVariable *SetVariable(const char *name, Entity *ent);
-   ScriptVariable *SetVariable(const char *name, Vector &vec);
+   ScriptVariable *SetVariable(const char *name, const Vector &vec);
    virtual void    Archive(Archiver &arc)   override;
    virtual void    Unarchive(Archiver &arc) override;
 };

@@ -978,10 +978,11 @@ EXPORT_FROM_DLL void ScriptThread::SendCommandToSlaves(const char *name, Event *
    TargetList  *tlist;
    int         i;
    int         num;
+   str name1(name + 1);
 
    if(name && name[0])
    {
-      tlist = GetTargetList(str(name + 1));
+      tlist = GetTargetList(name1);
       num = tlist->list.NumObjects();
       for(i = 1; i <= num; i++)
       {
@@ -1849,13 +1850,14 @@ void ScriptThread::TriggerEvent(Event *ev)
    TargetList  *tlist;
    int         i;
    int         num;
+   str name1(name + 1);
 
    name = ev->GetString(1);
 
    // Check for object commands
    if(name && name[0] == '$')
    {
-      tlist = GetTargetList(str(name + 1));
+      tlist = GetTargetList(name1);
       num = tlist->list.NumObjects();
       for(i = 1; i <= num; i++)
       {

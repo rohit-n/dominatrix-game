@@ -738,6 +738,7 @@ Class *Archiver::ReadObject(Class *obj)
 
 void Archiver::Create(const char *name)
 {
+   str infostr(ArchiveInfo);
    assert(name);
    if(!name)
    {
@@ -759,7 +760,7 @@ void Archiver::Create(const char *name)
 
    WriteUnsigned(ArchiveHeader);
    WriteUnsigned(ArchiveVersion);
-   WriteString(str(ArchiveInfo));
+   WriteString(infostr);
 
    numclassespos = ftell(file);
    WriteInteger(0);

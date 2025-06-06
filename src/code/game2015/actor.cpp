@@ -585,7 +585,7 @@ inline qboolean Actor::CanSeeFOV(Entity *ent)
    return InFOV(ent) && CanSeeFrom(worldorigin, ent);
 }
 
-inline qboolean Actor::CanSeeFrom(Vector pos, Entity *ent)
+/*inline*/ qboolean Actor::CanSeeFrom(Vector pos, Entity *ent)
 {
    trace_t trace;
    Vector p;
@@ -1141,11 +1141,13 @@ qboolean Actor::HasEnemies(void)
 
 qboolean Actor::IsEnemy(Entity *ent)
 {
-   return enemyList.ObjectInList(EntityPtr(ent)) && seenEnemy;
+   EntityPtr ptr(ent);
+   return enemyList.ObjectInList(ptr) && seenEnemy;
 }
 
 void Actor::MakeEnemy(Entity *ent, qboolean force)
 {
+   EntityPtr ptr(ent);
    // don't get mad at things that can't be hurt or the world
    if(ent &&
       (ent != world) &&
@@ -1153,9 +1155,9 @@ void Actor::MakeEnemy(Entity *ent, qboolean force)
       !(ent->flags & FL_NOTARGET) &&
       (ent->takedamage != DAMAGE_NO))
    {
-      if(!enemyList.ObjectInList(EntityPtr(ent)))
+      if(!enemyList.ObjectInList(ptr))
       {
-         enemyList.AddObject(EntityPtr(ent));
+         enemyList.AddObject(ptr);
       }
 
       if(!currentEnemy && !seenEnemy)
@@ -2182,7 +2184,7 @@ inline ScriptVariable *Actor::SetVariable(const char *name, Entity *ent)
    return NULL;
 }
 
-inline ScriptVariable *Actor::SetVariable(const char *name, Vector &vec)
+inline ScriptVariable *Actor::SetVariable(const char *name, const Vector &vec)
 {
    if(actorthread)
    {
@@ -2881,7 +2883,7 @@ void Actor::IfNearEvent(Event *ev)
    Entity			*bestent;
    float				bestdist;
    float				dist;
-   str				name;
+   str				name, name1;
    Vector         delta;
    float				distance;
    TargetList		*tlist;
@@ -2911,8 +2913,9 @@ void Actor::IfNearEvent(Event *ev)
    {
       bestent = NULL;
       bestdist = distance * distance;
+      name1 = str(&name[1]);
 
-      tlist = world->GetTargetList(str(&name[1]));
+      tlist = world->GetTargetList(name1);
       n = tlist->list.NumObjects();
       for(i = 1; i <= n; i++)
       {

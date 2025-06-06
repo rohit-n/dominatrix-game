@@ -52,8 +52,8 @@ void TestWeapon::Prethink()
    char *wmodel;
    char *model;
 
-   if(stricmp(gun_model->string, viewmodel.c_str()) ||
-      stricmp(gun_wmodel->string, worldmodel.c_str()))
+   if(strcmpi(gun_model->string, viewmodel.c_str()) ||
+      strcmpi(gun_wmodel->string, worldmodel.c_str()))
    {
       model = gun_model->string;
       wmodel = gun_wmodel->string;

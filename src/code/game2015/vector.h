@@ -47,10 +47,11 @@ public:
    void setRoll(double roll)   { z = float(roll);  }
    
    float   *vec3();
+   inline const float *vec3(void) const { return &x; }
    float    operator [] (int index) const;
    float   &operator [] (int index);
 
-   void Vector::copyTo(vec3_t vec) const
+   void copyTo(vec3_t vec) const
    {
       vec[0] = x;
       vec[1] = y;

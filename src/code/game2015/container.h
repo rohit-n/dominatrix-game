@@ -21,6 +21,7 @@
 #pragma once 
 
 #include <stdlib.h>
+extern game_import_t		gi;
 
 template< class Type >
 class Container
@@ -39,7 +40,7 @@ public:
    int      NumObjects() const;
    void     Resize(int maxelements);
    void     SetObjectAt(int index, Type& obj);
-   int      AddObject(Type& obj);
+   int      AddObject(const Type &obj);
    int      AddUniqueObject(Type& obj);
    void     AddObjectAt(int index, Type& obj);
    int      IndexOfObject(const Type &obj);
@@ -48,7 +49,7 @@ public:
    Type     *AddressOfObjectAt(int index);
    void     RemoveObjectAt(int index);
    void     RemoveObject(const Type &obj);
-   void     Sort(int(__cdecl *compare)(const void *elem1, const void *elem2));
+   void     Sort(int(/*__cdecl*/ *compare)(const void *elem1, const void *elem2));
    //      virtual void Archive(	Archiver &arc );
    //      virtual void Unarchive( Archiver &arc );
 
@@ -192,7 +193,7 @@ void Container<Type>::SetObjectAt(int index, Type &obj)
 }
 
 template<class Type>
-int Container<Type>::AddObject(Type &obj)
+int Container<Type>::AddObject(const Type &obj)
 {
    if(!objlist)
    {
@@ -204,7 +205,7 @@ int Container<Type>::AddObject(Type &obj)
       Resize(maxobjects * 2);
    }
 
-   objlist[numobjects] = obj;
+   objlist[numobjects] = (Type &)obj;
    numobjects++;
 
    return numobjects;
@@ -334,7 +335,7 @@ void Container<Type>::RemoveObject(const Type &obj)
 }
 
 template<class Type>
-void Container<Type>::Sort(int (__cdecl *compare)(const void *elem1, const void *elem2))
+void Container<Type>::Sort(int (/*__cdecl*/ *compare)(const void *elem1, const void *elem2))
 {
    if(!objlist)
    {

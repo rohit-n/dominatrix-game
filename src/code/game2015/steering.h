@@ -19,6 +19,7 @@
 
 #include "g_local.h"
 #include "entity.h"
+#include "navigate.h"
 #include "path.h"
 
 class Actor;

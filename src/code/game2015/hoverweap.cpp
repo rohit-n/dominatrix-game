@@ -585,7 +585,7 @@ void HoverWeap::TraceAttack(const Vector &start, const Vector &end, int damage, 
 void HoverWeap::FireBullets(Vector src, Vector dir, int numbullets, Vector spread, 
                             int mindamage, int maxdamage, int dflags, int meansofdeath, qboolean server_effects)
 {
-   Vector	end;
+   Vector	end, end2;
    trace_t	trace;
    Vector	right;
    Vector	up;
@@ -621,7 +621,8 @@ void HoverWeap::FireBullets(Vector src, Vector dir, int numbullets, Vector sprea
 
             // also do a short full trace to see if we're hitting a player on a hoverbike
             end = trace.endpos + dir * 64;
-            trace2 = G_FullTrace(Vector(trace.endpos), vec_zero, vec_zero, end, 5, bike->frontbox, MASK_SHOT, "BulletWeapon::FireBullets");
+            end2 = Vector(trace.endpos);
+            trace2 = G_FullTrace(end2, vec_zero, vec_zero, end, 5, bike->frontbox, MASK_SHOT, "BulletWeapon::FireBullets");
             if(trace2.fraction != 1)
             {
                Entity *hit2;

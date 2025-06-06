@@ -99,6 +99,7 @@ extern   int       sv_numtraces;
 
 extern   cvar_t   *parentmode;
 extern   cvar_t   *dedicated;
+extern cvar_t* locale;
 
 //###
 extern   cvar_t   *informermodel;

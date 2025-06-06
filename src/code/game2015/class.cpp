@@ -22,7 +22,7 @@
 #include <stdarg.h>
 #include "g_local.h"
 #include "class.h"
-#include "linklist.h"
+#include "LINKLIST.H"
 
 int totalmemallocated = 0;
 int numclassesallocated = 0;

@@ -48,8 +48,6 @@
 //###
 #include "ctf.h"
 
-#include <windows.h>
-
 //temporarily put this in.
 //#define OLD_DEATH_MESSAGES 1
 
@@ -2352,7 +2350,7 @@ EXPORT_FROM_DLL void Player::CheckButtons(void)
       if(usedown) 
       {
          CTF_ReleaseGrapple();
-         usedown = FALSE;
+         usedown = 0;
       }
    }
    else
@@ -3052,8 +3050,8 @@ EXPORT_FROM_DLL void Player::ClientThink(Event *ev)
          if(goggles)
          {
             // turn the goggles off
-            goggles->goggleson = FALSE;
-            nightvision = FALSE;
+            goggles->goggleson = 0;
+            nightvision = 0;
          }
       }
    }
@@ -3265,7 +3263,7 @@ void Player::Take(Event *ev)
       return;
    }
 
-   if(!stricmp(name, "all"))
+   if(!strcmpi(name, "all"))
    {
       if(currentWeapon)
          currentWeapon->DetachFromOwner();
@@ -5142,7 +5140,7 @@ EXPORT_FROM_DLL void Player::ChooseAnim()
             if(!flag->limp)
             {
                flag->RandomAnimate("limp", nullptr);
-               flag->limp = TRUE;
+               flag->limp = 1;
             }
          }
       }
@@ -8079,11 +8077,11 @@ void Player::CTF_Team(Event *ev)
 
    team = ev->GetString(1);
 
-   if((!stricmp(team.c_str(), "hardcorps")) || (!stricmp(team.c_str(), "blue")))
+   if((!strcmpi(team.c_str(), "hardcorps")) || (!strcmpi(team.c_str(), "blue")))
    {
       desired_team = CTF_TEAM_HARDCORPS;
    }
-   else if((!stricmp(team.c_str(), "sintek")) || (!stricmp(team.c_str(), "red")))
+   else if((!strcmpi(team.c_str(), "sintek")) || (!strcmpi(team.c_str(), "red")))
    {
       desired_team = CTF_TEAM_SINTEK;
    }

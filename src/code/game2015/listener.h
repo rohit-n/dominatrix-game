@@ -40,9 +40,16 @@ typedef enum
 class ScriptThread;
 class Archiver;
 
+void G_ProcessPendingEvents();
+void G_ClearEventList();
+void G_InitEvents();
+void G_ArchiveEvents(Archiver &arc);
+void G_UnarchiveEvents(Archiver &arc);
+
 class Event : public Class
 {
-private:
+//	private:
+public:
    struct EventInfo
    {
       unsigned inuse : 8;		// must change MAX_EVENT_USE to reflect maximum number stored here
@@ -60,12 +67,6 @@ private:
    static void       initCommandList();
 
    friend class Listener;
-
-   friend void G_ProcessPendingEvents();
-   friend void G_ClearEventList();
-   friend void G_InitEvents();
-   friend void G_ArchiveEvents(Archiver &arc);
-   friend void G_UnarchiveEvents(Archiver &arc);
 
    static Container<str *> *commandList;
    static Container<int>   *flagList;
@@ -174,9 +175,9 @@ public:
    qboolean                ValidEvent(const char *name);
    qboolean                EventPending(Event &ev);
    qboolean                ProcessEvent(Event *event);
-   qboolean                ProcessEvent(Event &event);
+   qboolean                ProcessEvent(const Event &event);
    void                    PostEvent(Event *event, float time);
-   void                    PostEvent(Event &event, float time);
+   void                    PostEvent(const Event &event, float time);
    qboolean                PostponeEvent(Event &event, float time);
    qboolean                PostponeEvent(Event *event, float time);
    void                    CancelEventsOfType(Event *event);
@@ -411,7 +412,7 @@ inline const char *Event::GetToken(int pos)
    return data->ObjectAt(pos).c_str();
 }
 
-inline qboolean Listener::ProcessEvent(Event &event)
+inline qboolean Listener::ProcessEvent(const Event &event)
 {
    Event *ev;
 
@@ -419,7 +420,7 @@ inline qboolean Listener::ProcessEvent(Event &event)
    return ProcessEvent(ev);
 }
 
-inline void Listener::PostEvent(Event &event, float time)
+inline void Listener::PostEvent(const Event &event, float time)
 {
    Event *ev;
 

@@ -18,6 +18,7 @@
 #include "script.h"
 #include "gamescript.h"
 #undef max
+#undef min
 #include "../elib/qstringmap.h" // haleyjd 20170608
 
 ScriptLibrarian ScriptLib;

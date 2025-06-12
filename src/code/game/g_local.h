@@ -26,7 +26,7 @@
 #if defined(__linux__) || defined(__SWITCH__)
 #define EXPORT_FROM_DLL __attribute__ ((visibility("default")))
 #else
-#define EXPORT_FROM_DLL __declspec( export )
+#define EXPORT_FROM_DLL
 #endif
 //#define EXPORT_TEMPLATE
 #else

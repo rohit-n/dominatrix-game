@@ -18,6 +18,9 @@
 #include "ctype.h"
 #include "worldspawn.h"
 #include "scriptmaster.h"
+#ifdef _WIN32
+#include "windows.h"
+#endif
 #include "ctf.h"
 
 cvar_t *g_numdebuglines;

@@ -2154,7 +2154,7 @@ inline ScriptVariable *Actor::SetVariable(const char *name, int value)
    return NULL;
 }
 
-inline ScriptVariable *Actor::SetVariable(const char *name, const char *text)
+/*inline*/ ScriptVariable *Actor::SetVariable(const char *name, const char *text)
 {
    if(actorthread)
    {
@@ -2174,7 +2174,7 @@ inline ScriptVariable *Actor::SetVariable(const char *name, str &text)
    return NULL;
 }
 
-inline ScriptVariable *Actor::SetVariable(const char *name, Entity *ent)
+/*inline*/ ScriptVariable *Actor::SetVariable(const char *name, Entity *ent)
 {
    if(actorthread)
    {
@@ -4005,7 +4005,7 @@ void Actor::NotLandEvent(Event *ev)
    flags &= FL_SWIM | FL_FLY;
 }
 
-inline qboolean Actor::CanMoveTo(Vector pos)
+/*inline*/ qboolean Actor::CanMoveTo(Vector pos)
 {
    trace_t	trace;
    Vector	start;

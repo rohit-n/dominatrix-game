@@ -18,6 +18,7 @@ stamp-h.in
 stamp-h1
 tags
 lib
+gamex86_64.dll
 
 # These are the default patterns globally ignored by Subversion:
 *.o

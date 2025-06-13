@@ -1,0 +1,11 @@
+all: src/code/game/gamex86_64.dll src/code/game2015/gamex86_64.dll
+
+src/code/game/gamex86_64.dll:
+	cd src/code/game/ && make -f ../../../gamedll/Makefile MINGW=1
+
+src/code/game2015/gamex86_64.dll:
+	cd src/code/game2015/ && make -f ../../../gamedll/Makefile MINGW=1
+
+clean:
+	cd src/code/game/ && make -f ../../../gamedll/Makefile clean MINGW=1
+	cd src/code/game2015/ && make -f ../../../gamedll/Makefile clean MINGW=1

@@ -8,6 +8,7 @@ CFLAGS= -DSIN -DELIB_GAMEDLL -fPIC
 
 ifeq ($(MINGW),1)
 DLL_NAME := gamex86_64.dll
+LFLAGS := -lwinmm
 else
 DLL_NAME := game.so
 endif
@@ -61,7 +62,7 @@ endif
 OBJ = $(patsubst %.cpp, %.o, $(SRC))
 
 all: $(OBJ) q_shared.o
-	$(CXX) $(OBJ) q_shared.o -shared -o $(DLL_NAME)
+	$(CXX) $(OBJ) q_shared.o $(LFLAGS) -shared -o $(DLL_NAME)
 
 static: $(OBJ) q_shared.o
 	$(AR) rcs $(DLL_NAME) $(OBJ) q_shared.o

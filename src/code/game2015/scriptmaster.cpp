@@ -1850,9 +1850,10 @@ void ScriptThread::TriggerEvent(Event *ev)
    TargetList  *tlist;
    int         i;
    int         num;
-   str name1(name + 1);
+   str name1;
 
    name = ev->GetString(1);
+   name1 = name + 1;
 
    // Check for object commands
    if(name && name[0] == '$')
